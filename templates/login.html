@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Login · Mycelia CMS{% endblock %}
+{% block content %}
+<section class="login-card">
+  <h1>Mycelia CMS</h1>
+  <p>Geschützte Administration</p>
+  <form method="post" class="stack" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Benutzer<input name="username" autocomplete="username" maxlength="128" required></label>
+    <label>Passwort<input type="password" name="password" autocomplete="current-password" maxlength="512" required></label>
+    <button class="primary" type="submit">Anmelden</button>
+  </form>
+</section>
+{% endblock %}

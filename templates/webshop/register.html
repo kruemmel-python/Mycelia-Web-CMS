@@ -1,0 +1,14 @@
+{% extends 'webshop/base.html' %}{% block title %}Registrieren · Mycelia{% endblock %}
+{% block content %}
+<section class="market-card narrow"><h1>Konto erstellen</h1><p>Deine Profildaten werden verschlüsselt in MyceliaDB gespeichert.</p>
+<form method="post" class="stack">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label>Benutzername<input name="username" minlength="3" maxlength="32" required autocomplete="username"></label>
+<label>Anzeigename<input name="display_name" maxlength="100" required autocomplete="name"></label>
+<label>E-Mail<input name="email" type="email" maxlength="254" required autocomplete="email"></label>
+<label>Passwort<input name="password" type="password" minlength="14" maxlength="256" required autocomplete="new-password"></label>
+<label>Passwort wiederholen<input name="password_repeat" type="password" minlength="14" maxlength="256" required autocomplete="new-password"></label>
+<label class="check"><input type="checkbox" name="privacy_ack" value="1" required> Ich habe die <a href="{{ url_for('webshop.privacy_notice') }}" target="_blank" rel="noopener noreferrer">Datenschutzhinweise</a> gelesen. Ich kann meine gespeicherten Daten jederzeit herunterladen und mein Konto selbst löschen.</label>
+<button class="primary" type="submit">Registrieren</button>
+</form><p><a href="{{ url_for('webshop.account_login') }}">Bereits registriert?</a></p></section>
+{% endblock %}

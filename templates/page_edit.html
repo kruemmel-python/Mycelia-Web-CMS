@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from 'richtext/editor.html' import richtext_editor %}{% block content %}
+<div class="heading"><div><h1>{{ 'Seite bearbeiten' if page else 'Neue Seite' }}</h1><p>Sicherer Texteditor mit verschlüsselter Bildgalerie. HTML, JavaScript und eingebetteter Code werden niemals ausgeführt.</p></div></div>
+<form method="post" enctype="multipart/form-data" class="editor">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <aside class="panel stack">
+    <label>Titel<input name="title" value="{{ page.title if page else '' }}" maxlength="180" required></label>
+    <label>Slug<input name="slug" value="{{ page.slug if page else '' }}" maxlength="128" pattern="[a-z0-9](?:[a-z0-9-]{0,126}[a-z0-9])?" required></label>
+    <label>Status<select name="status"><option value="draft" {% if not page or page.status=='draft' %}selected{% endif %}>Entwurf</option><option value="published" {% if page and page.status=='published' %}selected{% endif %}>Veröffentlicht</option></select></label>
+    <label>Bilder (max. 3)<input type="file" name="image_files" accept="image/jpeg,image/png,image/webp" multiple data-max-bytes="280000" data-max-count="3"></label>
+    {% if page_images %}<div class="media-editor-grid">{% for image in page_images %}<label class="media-editor-item"><img src="{{ url_for('media.content_image', image_id=image.id) }}" alt="Seitenbild"><span><input type="checkbox" name="remove_image_ids" value="{{ image.id }}"> entfernen</span></label>{% endfor %}</div>{% endif %}
+    <button class="primary" type="submit">Verschlüsselt speichern</button>
+    {% if page %}<a href="{{ url_for('public_page', slug=page.slug) }}" target="_blank" rel="noopener noreferrer">Vorschau öffnen</a>{% endif %}
+  </aside>
+  <section class="panel">{{ richtext_editor('body', page.body if page else '', 'document', 'Inhalt', false) }}<p class="security-note">Formatierung wird als MYCELIA_RICHTEXT-Struktur gespeichert. Browser-HTML wird niemals übernommen. Bilder bleiben getrennte verschlüsselte Media-Objekte.</p></section>
+</form>
+{% if page %}<form method="post" action="{{ url_for('page_delete', page_id=page.id) }}" class="danger-zone"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="danger" type="submit">Seite löschen</button></form>{% endif %}
+{% endblock %}

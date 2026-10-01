@@ -1,0 +1,44 @@
+{% macro richtext_editor(name, value='', profile='document', label='Inhalt', required=true, max_chars=none) -%}
+{% set effective_max = max_chars if max_chars is not none else (200000 if profile == 'document' else (50000 if profile == 'compact' else 40000)) %}
+{% set input_id = 'rt-' ~ name ~ '-' ~ range(100000,999999)|random %}
+<div class="rt-field">
+  <label>{{ label }}{% if required %} <span class="rt-required">*</span>{% endif %}</label>
+  <textarea class="rt-source" id="{{ input_id }}" name="{{ name }}" hidden>{{ richtext_json(value, profile) }}</textarea>
+  <div class="rt-editor" data-rt-input="{{ input_id }}" data-rt-profile="{{ profile }}" data-rt-required="{{ 1 if required else 0 }}" data-rt-max-chars="{{ effective_max }}">
+    <div class="rt-toolbar" role="toolbar" aria-label="Textformatierung">
+      <button type="button" data-rt-cmd="bold" title="Fett"><strong>B</strong></button>
+      <button type="button" data-rt-cmd="italic" title="Kursiv"><em>I</em></button>
+      <button type="button" data-rt-cmd="underline" title="Unterstrichen"><u>U</u></button>
+      <button type="button" data-rt-cmd="strikeThrough" title="Durchgestrichen"><s>S</s></button>
+      <button type="button" data-rt-action="inline-code" title="Inline-Code">&lt;/&gt;</button>
+      <button type="button" data-rt-action="link" title="HTTPS-/interner Link">Link</button>
+      <span class="rt-sep"></span>
+      {% if profile != 'compact' %}
+      <button type="button" data-rt-action="tone-accent">Akzent</button>
+      <button type="button" data-rt-action="tone-muted">Gedimmt</button>
+      <button type="button" data-rt-action="tone-warning">Hinweis</button>
+      <button type="button" data-rt-action="size-small">Klein</button>
+      <button type="button" data-rt-action="size-large">Groß</button>
+      <button type="button" data-rt-action="align-left">↤</button>
+      <button type="button" data-rt-action="align-center">↔</button>
+      <button type="button" data-rt-action="align-right">↦</button>
+      <button type="button" data-rt-block="p">Text</button>
+      <button type="button" data-rt-block="h2">H2</button>
+      <button type="button" data-rt-block="h3">H3</button>
+      {% endif %}
+      <button type="button" data-rt-block="blockquote">Zitat</button>
+      <button type="button" data-rt-cmd="insertUnorderedList">• Liste</button>
+      <button type="button" data-rt-cmd="insertOrderedList">1. Liste</button>
+      <button type="button" data-rt-block="pre">Codeblock</button>
+      {% if profile != 'compact' %}<button type="button" data-rt-action="divider">Linie</button>{% endif %}
+      {% if profile == 'document' %}
+      <button type="button" data-rt-action="table">Tabelle</button>
+      <button type="button" data-rt-action="button-link">Button-Link</button>
+      {% endif %}
+      <button type="button" data-rt-action="clear">Format löschen</button>
+    </div>
+    <div class="rt-canvas" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true"></div>
+    <p class="rt-note">MYCELIA RICHTEXT · Fremdes HTML wird beim Einfügen verworfen. Gespeichert wird ausschließlich validierte Struktur, niemals Browser-HTML.</p>
+  </div>
+</div>
+{%- endmacro %}

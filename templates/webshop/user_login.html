@@ -1,0 +1,7 @@
+{% extends 'webshop/base.html' %}{% block title %}Login · Mycelia{% endblock %}
+{% block content %}<section class="market-card narrow"><h1>Benutzer-Login</h1>
+<form method="post" class="stack"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% if next_url %}<input type="hidden" name="next" value="{{ next_url }}">{% endif %}
+<label>Benutzername<input name="username" required autocomplete="username"></label>
+<label>Passwort<input name="password" type="password" required autocomplete="current-password"></label>
+<button class="primary" type="submit">Anmelden</button></form>
+<p><a href="{{ url_for('webshop.account_register') }}">Neues Konto erstellen</a></p></section>{% endblock %}

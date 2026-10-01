@@ -1,0 +1,23 @@
+{% extends 'webshop/base.html' %}
+{% block title %}Forum · Mycelia{% endblock %}
+{% block content %}
+<div class="market-heading">
+  <div>
+    <h1>Forum{% if shop %} · {{ shop.name }}{% endif %}</h1>
+    <p>{{ 'Shop-Forum' if shop else 'Globale und zugängliche Shop-Foren' }}</p>
+  </div>
+  {% if viewer %}
+    <a class="button" href="{{ url_for('ecosystem.forum_new', shop_id=shop.id if shop else '') }}">+ Thema erstellen</a>
+  {% else %}
+    <a class="button" href="{{ url_for('webshop.account_login', next=request.full_path.rstrip('?')) }}">Anmelden, um ein Thema zu erstellen</a>
+  {% endif %}
+</div>
+{% for t in topics %}
+  <a class="market-row" href="{{ url_for('ecosystem.forum_topic',topic_id=t.id) }}">
+    <div><strong>{{ t.title }}</strong><span>{% if topic_shops.get(t.id) %}{{ topic_shops[t.id].name }} · {% else %}Global · {% endif %}{{ platform_author_name(t.author_id) }}</span></div>
+    <span>{{ t.updated_at }}</span>
+  </a>
+{% else %}
+  <p>Noch keine Themen.</p>
+{% endfor %}
+{% endblock %}

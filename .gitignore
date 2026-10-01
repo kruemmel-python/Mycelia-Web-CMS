@@ -1,0 +1,57 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+token_*.json
+mail_accounts.json
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated native builds and runtimes
+build/
+runtime/
+vendor/
+recovery_runtimes/
+third_party/Mycelia-Security-SDK_v2_secure/bin/
+third_party/Mycelia-Security-SDK_v2_secure/lib/
+third_party/Mycelia-Security-SDK_v2_secure/obj/
+third_party/MyceliaDB_Enterprise_Studio_v0_2_secure/build_vs2022/
+*.obj
+*.exp
+*.pdb
+*.ilk
+
+# Runtime data, backups and audit output
+data/
+*.mycdb
+*.mycdb.auth
+*.mycdb.media/
+
+# Local packaging and publication worktrees
+dist/
+publish/
+
+# Local documentation captures and working files
+docs/*.pdf
+docs/*.webp
+docs/CodeDump_*.md
+ChatGPT-Bild*.png
+banner.webp
+ilogo.webp
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store

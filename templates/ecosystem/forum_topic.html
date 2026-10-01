@@ -1,0 +1,47 @@
+{% extends 'webshop/base.html' %}
+{% from 'richtext/editor.html' import richtext_editor %}
+{% from 'richtext/view.html' import render_richtext %}
+{% block title %}{{ topic.title }} · Forum{% endblock %}
+{% block content %}
+<h1>{{ topic.title }}</h1>
+<p class="muted">{{ 'Shop-Forum · '+shop.name if shop else 'Globales Forum' }}</p>
+
+{% for r in replies %}
+<article class="market-card">
+  <strong>{{ platform_author_name(r.author_id) }}</strong>
+  {{ render_richtext(richtext_doc(r.body, 'compact')) }}
+  {% if reply_images.get(r.id) %}
+  <div class="content-gallery">
+    {% for image in reply_images.get(r.id) %}
+      <img src="{{ url_for('media.content_image',image_id=image.id) }}" alt="Forumbild">
+    {% endfor %}
+  </div>
+  {% endif %}
+  <span class="muted">{{ r.created_at }}</span>
+</article>
+{% endfor %}
+
+<section class="market-card" id="antworten">
+  {% if topic.locked %}
+    <h2>Antworten</h2>
+    <div class="flash error" role="alert">Dieses Thema ist geschlossen. Es können keine weiteren Antworten geschrieben werden.</div>
+  {% elif viewer %}
+    <h2>Antwort schreiben</h2>
+    <form method="post" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      {{ richtext_editor('body', reply_body|default(''), 'compact', 'Antwort', true, 80000) }}
+      <label>Bilder (max. 3)
+        <input type="file" name="image_files" accept="image/jpeg,image/png,image/webp" multiple data-max-bytes="280000" data-max-count="3">
+      </label>
+      <button type="submit">Antwort veröffentlichen</button>
+    </form>
+  {% else %}
+    <h2>Antwort schreiben</h2>
+    <p>Zum Antworten benötigst du ein bestätigtes Mycelia-Konto.</p>
+    <div class="button-row">
+      <a class="button" href="{{ url_for('webshop.account_login', next=request.path) }}">Anmelden</a>
+      <a class="button" href="{{ url_for('webshop.account_register') }}">Registrieren</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

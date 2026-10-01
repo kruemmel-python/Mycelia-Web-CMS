@@ -1,0 +1,39 @@
+{% macro runs(items) -%}
+{%- for run in items -%}
+  {%- if run.link %}<a href="{{ run.link }}"{% if run.link.startswith('https://') %} rel="noopener noreferrer nofollow"{% endif %}>{% endif -%}
+  {%- if run.tone == 'accent' %}<span class="rt-tone-accent">{% elif run.tone == 'muted' %}<span class="rt-tone-muted">{% elif run.tone == 'warning' %}<span class="rt-tone-warning">{% endif -%}
+  {%- if run.size == 'small' %}<span class="rt-size-small">{% elif run.size == 'large' %}<span class="rt-size-large">{% endif -%}
+  {%- if 'bold' in run.marks %}<strong>{% endif -%}
+  {%- if 'italic' in run.marks %}<em>{% endif -%}
+  {%- if 'underline' in run.marks %}<u>{% endif -%}
+  {%- if 'strike' in run.marks %}<s>{% endif -%}
+  {%- if 'code' in run.marks %}<code>{% endif -%}
+  {{- run.text -}}
+  {%- if 'code' in run.marks %}</code>{% endif -%}
+  {%- if 'strike' in run.marks %}</s>{% endif -%}
+  {%- if 'underline' in run.marks %}</u>{% endif -%}
+  {%- if 'italic' in run.marks %}</em>{% endif -%}
+  {%- if 'bold' in run.marks %}</strong>{% endif -%}
+  {%- if run.size == 'small' or run.size == 'large' %}</span>{% endif -%}
+  {%- if run.tone == 'accent' or run.tone == 'muted' or run.tone == 'warning' %}</span>{% endif -%}
+  {%- if run.link %}</a>{% endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{% macro render_richtext(doc) -%}
+<div class="mycelia-richtext-view">
+{%- for block in doc.blocks %}
+  {%- if block.type == 'paragraph' %}<p{% if block.align == 'center' %} class="rt-align-center"{% elif block.align == 'right' %} class="rt-align-right"{% endif %}>{{ runs(block.runs) }}</p>
+  {%- elif block.type == 'heading' and block.level == 2 %}<h2{% if block.align == 'center' %} class="rt-align-center"{% elif block.align == 'right' %} class="rt-align-right"{% endif %}>{{ runs(block.runs) }}</h2>
+  {%- elif block.type == 'heading' and block.level == 3 %}<h3{% if block.align == 'center' %} class="rt-align-center"{% elif block.align == 'right' %} class="rt-align-right"{% endif %}>{{ runs(block.runs) }}</h3>
+  {%- elif block.type == 'quote' %}<blockquote>{{ runs(block.runs) }}</blockquote>
+  {%- elif block.type == 'bullet_list' %}<ul>{% for item in block.items %}<li>{{ runs(item) }}</li>{% endfor %}</ul>
+  {%- elif block.type == 'ordered_list' %}<ol>{% for item in block.items %}<li>{{ runs(item) }}</li>{% endfor %}</ol>
+  {%- elif block.type == 'code' %}<pre><code class="language-{{ block.language }}">{{ block.text }}</code></pre>
+  {%- elif block.type == 'divider' %}<hr>
+  {%- elif block.type == 'button_link' %}<p><a class="rt-button" href="{{ block.href }}"{% if block.href.startswith('https://') %} rel="noopener noreferrer nofollow"{% endif %}>{{ block.text }}</a></p>
+  {%- elif block.type == 'table' %}<div class="rt-table-wrap"><table><tbody>{% for row in block.rows %}<tr>{% for cell in row %}<td>{{ runs(cell) }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
+  {%- endif %}
+{%- endfor %}
+</div>
+{%- endmacro %}

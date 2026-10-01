@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="heading"><div><h1>System & native Sicherungen</h1><p>MyceliaDB V2 ist die einzige Persistenzinstanz. Keine parallele CMS-Datenbank.</p></div></div>
+<section class="panel system-grid">
+  <div><span>Datenbank</span><strong>{{ db_status }}</strong></div>
+  <div><span>Security SDK</span><strong>{{ dll_path }}</strong></div>
+  <div><span>Live-Persistenz</span><strong>{{ live_snapshot }}</strong></div>
+</section>
+<section class="panel stack">
+  <h2>Vollständige native Sicherung</h2>
+  <p>Erzeugt eine MyceliaDB-V2-Datei inklusive manueller CMS-Nodes. Eine HMAC-Seitendatei schützt die Sicherung vor unbemerkter Veränderung.</p>
+  <form method="post" action="{{ url_for('system_backup') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="primary" type="submit">Native MyceliaDB-Sicherung erstellen</button>
+  </form>
+</section>
+<section class="panel stack">
+  <h2>Vorhandene Sicherungen</h2>
+  {% if backups %}
+    {% for item in backups %}
+      <div class="backup-row">
+        <div>
+          <strong>{{ item.name }}</strong>
+          <span>{{ item.size }} Bytes · {{ item.created_at }} · {{ 'authentifiziert' if item.authenticated else 'NICHT authentifiziert' }}</span>
+        </div>
+        {% if item.authenticated %}
+        <form method="post" action="{{ url_for('system_restore') }}" class="restore-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="backup" value="{{ item.name }}">
+          <label>Zum Wiederherstellen exakt <code>RESTORE</code> eingeben
+            <input name="confirmation" autocomplete="off" required pattern="RESTORE">
+          </label>
+          <button class="danger" type="submit">Wiederherstellen</button>
+        </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Noch keine manuelle Sicherung vorhanden.</p>
+  {% endif %}
+</section>
+
+<section class="card danger-zone"><h2>Historische Backups löschen</h2><p>Diese administrative Aktion löscht ausschließlich manuelle historische Restore-Punkte. Konto-Löschungen besitzen darauf keine Berechtigung.</p><form method="post" action="{{ url_for('system_backup_purge') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label>Bestätigung<input name="confirmation" required pattern="PURGE BACKUPS" autocomplete="off" placeholder="PURGE BACKUPS"></label><button class="danger" type="submit">Historische Backups löschen</button></form></section>
+{% endblock %}

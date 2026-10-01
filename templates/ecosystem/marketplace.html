@@ -1,0 +1,5 @@
+{% extends 'webshop/base.html' %}{% block title %}Marktplatz · Mycelia{% endblock %}{% block content %}
+<div class="market-heading"><div><h1>Marktplatz</h1><p>Produkte aller aktiven Mycelia-Shops.</p></div></div>
+<form class="market-card" method="get"><label>Suche<input name="q" value="{{ query }}" maxlength="120"></label><button>Suchen</button></form>
+<div class="market-grid">{% for shop,product in products %}<article class="market-card">{% if product.image_ids %}<a href="{{ url_for('webshop.public_product',shop_slug=shop.slug,product_slug=product.slug) }}"><img class="product-cover" src="{{ url_for('webshop.product_image', image_id=product.image_ids[0]) }}" alt="{{ product.name }}"></a>{% endif %}<span class="muted">{{ shop.name }}</span><h2>{{ product.name }}</h2><p class="clamp">{{ richtext_excerpt(product.description, 220) }}</p><p class="price big">{{ money(product.price_cents, product.currency) }}</p><a class="button" href="{{ url_for('webshop.public_product',shop_slug=shop.slug,product_slug=product.slug) }}">Produkt öffnen</a></article>{% else %}<p>Keine Produkte gefunden.</p>{% endfor %}</div>
+{% endblock %}

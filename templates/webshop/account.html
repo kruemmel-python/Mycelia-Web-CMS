@@ -1,0 +1,11 @@
+{% extends 'webshop/base.html' %}{% block title %}Mein Konto · Mycelia{% endblock %}
+{% block content %}<div class="market-heading"><div><h1>Hallo {{ user.display_name }}</h1><p>@{{ user.username }} · {{ user.email }}</p></div><div><a class="button" href="{{ url_for('webshop.account_profile') }}">Profil bearbeiten</a> <a class="button" href="{{ url_for('webshop.privacy_center') }}">Datenschutz-Center</a></div></div>
+<div class="market-grid">
+<article class="market-card"><h2>Mein Shop</h2>{% if shop %}<p><strong>{{ shop.name }}</strong><br>{{ shop.slug }}</p><a class="button" href="{{ url_for('webshop.shop_manage') }}">Shop verwalten</a> <a href="{{ url_for('webshop.public_shop', shop_slug=shop.slug) }}">Öffnen</a>{% else %}<p>Du hast noch keinen Shop.</p><a class="button" href="{{ url_for('webshop.shop_manage') }}">Shop erstellen</a>{% endif %}</article>
+<article class="market-card"><h2>Meine Bestellungen</h2><p>{{ orders|length }} Bestellung(en)</p>{% for order in orders[:5] %}<a class="market-row" href="{{ url_for('webshop.order_confirmation', order_id=order.id) }}">{{ order.product_name }} · {{ money(order.total_cents, order.currency) }} · {{ order.status }}</a>{% else %}<p class="muted">Noch keine Bestellungen.</p>{% endfor %}</article>
+<article class="market-card"><h2>Meine Daten</h2><p>Exportiere alle dir zugeordneten personenbezogenen Mycelia-Daten oder lösche das Konto.</p><a href="{{ url_for('webshop.privacy_center') }}">Datenschutz-Center öffnen</a></article>
+
+<article class="market-card"><h2>Creator-Plattform</h2><p>Öffentliches Creator-Profil und Beiträge.</p><a href="{{ url_for('ecosystem.creator_manage') }}">Creator-Profil</a> · <a href="{{ url_for('ecosystem.creator_posts') }}">Beiträge</a></article>
+<article class="market-card"><h2>Support</h2><p>Deine Tickets bei Mycelia-Shops.</p><a href="{{ url_for('ecosystem.tickets_customer') }}">Meine Tickets</a></article>
+<article class="market-card"><h2>Wissen & Community</h2><p>Forum, Knowledge Base und globaler Community-Feed.</p><a href="{{ url_for('ecosystem.forum') }}">Forum</a> · <a href="{{ url_for('ecosystem.knowledge') }}">Knowledge</a> · <a href="{{ url_for('ecosystem.community') }}">Community</a></article>
+</div>{% endblock %}
