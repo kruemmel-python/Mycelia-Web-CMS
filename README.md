@@ -1,4 +1,5 @@
 # Mycelia WebCMS v0.8.0 Security Core Hardened
+<img width="1672" height="941" alt="ilogo" src="https://github.com/user-attachments/assets/2b8971b8-afb6-4114-a642-4984c212b5d5" />
 
 Lizenz: [GNU General Public License Version 3](LICENSE)
 
