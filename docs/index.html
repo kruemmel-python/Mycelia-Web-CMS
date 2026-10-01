@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mycelia WebCMS 0.8 — The web stack, rethought.</title>
+<meta name="description" content="Mycelia WebCMS 0.8 verbindet Content, Commerce, Community, Identität, Security und native MyceliaDB-Persistenz in einer Architektur.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="grain"></div>
+<header class="nav"><a class="brand" href="#top"><span class="mark">MYCELIA</span><span>WebCMS 0.8</span></a><nav><a href="#platform">Platform</a><a href="#security">Security</a><a href="#experience">Experience</a><a href="#architecture">Architecture</a></nav><a class="pill" href="#launch">Explore 0.8</a></header>
+<main id="top">
+<section class="hero reveal">
+<div class="eyebrow">INTRODUCING MYCELIA WEBCMS 0.8</div>
+<h1>The web stack,<br><em>rethought.</em></h1>
+<p class="lede">Content. Commerce. Community. Identity. Security. Data.<br>Eine Plattform. Eine Architektur.</p>
+<div class="hero-actions"><a class="primary" href="#platform">Discover Mycelia</a><a class="secondary" href="#experience">See the real UI ↓</a></div>
+<div class="orb"><div class="core">MYCELIA</div><i class="ring r1"></i><i class="ring r2"></i><i class="ring r3"></i></div>
+</section>
+
+<section class="statement reveal"><p>Stop assembling platforms.</p><h2>Start building <span>one.</span></h2><div class="copy">Mycelia wurde nicht als Sammlung voneinander unabhängiger Plugins gedacht. Content, Commerce, Identität, Sicherheit und Persistenz bilden eine gemeinsame technische Grundlage.</div></section>
+
+<section id="platform" class="layers reveal"><div class="section-head"><span>01 / PLATFORM</span><h2>Five layers.<br>One system.</h2></div><div class="layer-stack">
+<div class="layer"><b>CONTENT</b><span>Seiten, Richtext, Medien und Wissen</span></div>
+<div class="layer"><b>COMMERCE</b><span>Multi-Shop, Produkte, Bestand und Bestellungen</span></div>
+<div class="layer"><b>IDENTITY</b><span>Accounts, Creator, Community und Berechtigungen</span></div>
+<div class="layer"><b>SECURITY</b><span>Validierung, Trust Boundaries und native Sicherheitslogik</span></div>
+<div class="layer hot"><b>DATA</b><span>Native MyceliaDB-Persistenz</span></div></div></section>
+
+<section class="db reveal"><div><span class="kicker">MYCELIADB</span><h2>Data isn't underneath the platform.</h2><h3>Data is part of the platform.</h3><p>MyceliaDB ist die native Persistenzbasis des Systems. Die Plattform arbeitet ohne zweite SQL-/SQLite-Persistenzschicht und hält die Datenarchitektur im eigenen Stack.</p></div><div class="dbviz"><span class="node n1">CONTENT</span><span class="node n2">COMMERCE</span><span class="node n3">IDENTITY</span><span class="node n4">SECURITY</span><span class="node center">MYCELIADB</span><svg viewBox="0 0 500 500"><g><line x1="250" y1="250" x2="250" y2="55"/><line x1="250" y1="250" x2="445" y2="250"/><line x1="250" y1="250" x2="250" y2="445"/><line x1="250" y1="250" x2="55" y2="250"/></g></svg></div></section>
+
+<section id="security" class="security reveal"><div class="section-head"><span>02 / SECURITY</span><h2>Below the surface.</h2></div><p class="bigcopy">Security isn't a checkbox. In Mycelia reicht sie vom Request über Identität und Geschäftslogik bis zur Persistenz.</p><div class="flow"><div>REQUEST</div><i>→</i><div>VALIDATION</div><i>→</i><div>IDENTITY</div><i>→</i><div>AUTHORIZATION</div><i>→</i><div>BUSINESS LOGIC</div><i>→</i><div class="accent">PERSISTENCE</div></div><div class="duo"><article><span>CLIENT</span><h3>The client asks.</h3><p>Der Browser beschreibt die gewünschte Aktion und sorgt für eine schnelle Benutzererfahrung.</p></article><article><span>SERVER</span><h3>The server decides.</h3><p>Autorisierung, Validierung, Eigentum und kritische Zustandswechsel bleiben serverseitige Entscheidungen.</p></article></div></section>
+
+<section id="experience" class="experience reveal"><div class="section-head"><span>03 / REAL PRODUCT</span><h2>Not a concept.<br>The actual interface.</h2></div><p class="bigcopy">Die folgenden Ansichten stammen aus dem laufenden Mycelia WebCMS 0.8.</p>
+<div class="gallery">
+<figure class="wide"><img src="assets/account.png" alt="Mycelia Account Dashboard"><figcaption><b>One identity.</b><span>Shop, Bestellungen, Datenschutz, Creator, Support und Wissen an einem Ort.</span></figcaption></figure>
+<figure><img src="assets/shops.png" alt="Mycelia Shops"><figcaption><b>Multi-Shop by design.</b><span>Eigenständige Shops innerhalb derselben Plattform.</span></figcaption></figure>
+<figure><img src="assets/shop.png" alt="Mycelia Shop"><figcaption><b>A shop is more than checkout.</b><span>Produkte, Blog, Forum, Knowledge, Downloads, Dokumente und Support.</span></figcaption></figure>
+<figure><img src="assets/marketplace.png" alt="Mycelia Marktplatz"><figcaption><b>One marketplace.</b><span>Produkte aktiver Mycelia-Shops in einer gemeinsamen Oberfläche.</span></figcaption></figure>
+<figure><img src="assets/community.png" alt="Mycelia Community"><figcaption><b>Community, built in.</b><span>Globaler Feed mit strukturiertem Richtext und Medien.</span></figcaption></figure>
+<figure><img src="assets/knowledge.png" alt="Mycelia Knowledge Base"><figcaption><b>Knowledge belongs inside.</b><span>Wissen und Artikel aus zugänglichen Shops.</span></figcaption></figure>
+<figure><img src="assets/privacy.png" alt="Mycelia Datenschutz Center"><figcaption><b>Privacy is a product surface.</b><span>Selbstauskunft und Löschung ohne Support-Ticket.</span></figcaption></figure>
+</div></section>
+
+<section class="privacy reveal"><div class="privacy-copy"><span class="kicker">PRIVACY</span><h2>Your data.<br>Your action.</h2><p>Der persönliche Export aggregiert die zugeordneten Mycelia-Daten. Das Datenschutz-Center ermöglicht Selbstauskunft und die kontrollierte Löschung des Kontos direkt in der Oberfläche.</p></div><div class="privacy-card"><div class="shield">⌁</div><b>DATA MINIMIZATION</b><span>native MyceliaDB persistence</span><hr><b>EXPORT</b><span>self-service</span><hr><b>DELETE</b><span>explicit + irreversible</span></div></section>
+
+<section id="architecture" class="architecture reveal"><div class="section-head"><span>04 / ARCHITECTURE</span><h2>Trust is established.<br>Not assumed.</h2></div><div class="principles"><article><b>01</b><h3>Explicit trust</h3><p>Proxy-Vertrauen wird bewusst konfiguriert. Weiterleitungsheader werden nicht pauschal als Wahrheit behandelt.</p></article><article><b>02</b><h3>Verified state</h3><p>Backups werden vor dem Restore authentifiziert. Ein manipulierter Snapshot führt zum Abbruch statt zum stillen Laden.</p></article><article><b>03</b><h3>Structured content</h3><p>Richtext wird als validierte Struktur gespeichert; Bilder werden dekodiert, normalisiert und neu kodiert.</p></article><article><b>04</b><h3>Recovery is engineering</h3><p>Recovery bleibt vom Produktivbetrieb getrennt und wird gegen überprüfbare Datenintegrität durchgeführt.</p></article></div></section>
+
+<section class="quote reveal"><p>“The foundation needs to be understood.”</p><span>MYCELIA ENGINEERING PRINCIPLE</span></section>
+
+<section id="launch" class="launch reveal"><span>MYCELIA WEBCMS 0.8</span><h2>Build higher.<br><em>Own deeper.</em></h2><p>Content. Commerce. Identity. Security. Data.</p><strong>One architecture.</strong><div class="signature">MYCELIA <small>Leipzig · Germany · 2026</small></div></section>
+</main>
+<footer><span>MYCELIA WEBCMS 0.8</span><span>Own the stack. Control the data.</span><span>© 2026</span></footer>
+<script src="app.js"></script>
+</body></html>
